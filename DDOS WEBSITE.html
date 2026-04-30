@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Manage APIs & Launch Attack</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #eee;
+  }
+  .sidebar {
+    background-color: #1a1a1a;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar button {
+    background: none;
+    border: none;
+    color: #f44336;
+    font-weight: bold;
+    padding: 15px 20px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .sidebar button.active,
+  .sidebar button:hover {
+    background-color: #f4433666;
+  }
+
+  main {
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  h2 {
+    color: #f44336;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #f44336;
+  }
+  input[type=text],
+  input[type=number],
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 5px;
+    background-color: #222;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #eee;
+  }
+  input::placeholder {
+    color: #999;
+  }
+  button.submit-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #ff6a6a, #ff3d3d);
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button.submit-btn:hover {
+    background: linear-gradient(90deg, #ff3d3d, #ff6a6a);
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <button id="btnManageAPI" class="active">🔗 Manage APIs</button>
+  <button id="btnLaunchAttack">🚀 Launch Attack</button>
+</div>
+
+<main>
+  <!-- Manage APIs Content -->
+  <section id="sectionManageAPI">
+    <h2>🔗 Manage APIs</h2>
+    <form id="apiForm">
+      <label for="apiUrl">API URL</label>
+      <input type="text" id="apiUrl" name="apiUrl" placeholder="http://ip:80/api.php" required />
+      <button type="submit" class="submit-btn">Add API</button>
+    </form>
+  </section>
+
+  <!-- Launch Attack Content -->
+  <section id="sectionLaunchAttack" style="display:none;">
+    <h2>🚀 Launch Attack</h2>
+    <form id="attackForm">
+      <label for="host">HOST</label>
+      <input type="text" id="host" name="host" placeholder="https://example.com" required />
+
+      <label for="port">PORT</label>
+      <input type="number" id="port" name="port" placeholder="443" required />
+
+      <label for="time">TIME</label>
+      <input type="number" id="time" name="time" placeholder="60" required />
+
+      <label for="method">METHOD</label>
+      <select id="method" name="method" required>
+        <option value="H2-FAST">H2-FAST</option>
+        <option value="H2-SLOW">H2-SLOW</option>
+        <option value="UDP-FLOOD">UDP-FLOOD</option>
+        <option value="TCP-ATTACK">TCP-ATTACK</option>
+      </select>
+
+      <button type="submit" class="submit-btn">🚀 Start</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  const btnManageAPI = document.getElementById('btnManageAPI');
+  const btnLaunchAttack = document.getElementById('btnLaunchAttack');
+  const sectionManageAPI = document.getElementById('sectionManageAPI');
+  const sectionLaunchAttack = document.getElementById('sectionLaunchAttack');
+
+  btnManageAPI.addEventListener('click', () => {
+    btnManageAPI.classList.add('active');
+    btnLaunchAttack.classList.remove('active');
+    sectionManageAPI.style.display = 'block';
+    sectionLaunchAttack.style.display = 'none';
+  });
+
+  btnLaunchAttack.addEventListener('click', () => {
+    btnLaunchAttack.classList.add('active');
+    btnManageAPI.classList.remove('active');
+    sectionLaunchAttack.style.display = 'block';
+    sectionManageAPI.style.display = 'none';
+  });
+
+  // Example form handlers
+  document.getElementById('apiForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const apiUrl = e.target.apiUrl.value.trim();
+    alert(`API URL Added: ${apiUrl}`);
+    e.target.reset();
+  });
+
+  document.getElementById('attackForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const host = e.target.host.value.trim();
+    const port = e.target.port.value.trim();
+    const time = e.target.time.value.trim();
+    const method = e.target.method.value;
+    alert(`Launching attack:\nHost: ${host}\nPort: ${port}\nTime: ${time}\nMethod: ${method}`);
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
