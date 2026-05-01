@@ -1,78 +1,335 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>t.me/cormentc2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Pterodactyl Panel • Login</title>
+  <!-- Font Awesome 6 (ikon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- Open Graph (Discord, Telegram, WhatsApp) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="t.me/cormentc2">
-    <meta property="og:description" content="Cloudflare Worker Test <3">
-    <meta property="og:image" content="https://i.giphy.com/pnvIvpBF9cQmnd7Dsm.webp">
-    <meta property="og:image:type" content="image/gif">
-    <meta property="og:image:width" content="480">
-    <meta property="og:image:height" content="480">
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0a0d14, #030507);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+    }
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="t.me/windbots">
-    <meta name="twitter:description" content="Cloudflare Worker Test <3">
-    <meta name="twitter:image" content="https://i.giphy.com/pnvIvpBF9cQmnd7Dsm.webp">
+    /* Efek grid seperti panel asli */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(45, 65, 95, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45, 65, 95, 0.15) 1px, transparent 1px);
+      background-size: 42px 42px;
+      pointer-events: none;
+    }
 
-    <style>
-        * {
-            transition: all 0.6s;
-        }
+    .login-container {
+      width: 100%;
+      max-width: 460px;
+      z-index: 2;
+      animation: fadeSlideUp 0.45s ease-out;
+    }
 
-        html {
-            height: 100%;
-        }
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        body {
-            font-family: 'Lato', sans-serif;
-            color: #888;
-            margin: 0;
-        }
+    /* Card utama - mirip Pterodactyl panel style */
+    .login-card {
+      background: rgba(20, 24, 33, 0.96);
+      backdrop-filter: blur(2px);
+      border-radius: 24px;
+      padding: 2rem 2rem 2rem 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(49, 66, 86, 0.6);
+      transition: all 0.2s;
+    }
 
-        #main {
-            display: table;
-            width: 100%;
-            height: 100vh;
-            text-align: center;
-        }
+    /* logo/brand area */
+    .brand-area {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .brand-icon {
+      font-size: 2.6rem;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .brand-area h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 6px;
+      background: linear-gradient(135deg, #eef2ff, #c7d2fe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.2px;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: #7e8aa2;
+      margin-top: 6px;
+      font-weight: 400;
+    }
 
-        .fof {
-            display: table-cell;
-            vertical-align: middle;
-        }
+    /* header login */
+    .login-header {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: center;
+      color: #f0f3fa;
+      margin-bottom: 1.6rem;
+      letter-spacing: -0.2px;
+    }
 
-        .fof h1 {
-            font-size: 50px;
-            display: inline-block;
-            padding-right: 12px;
-            animation: type .5s alternate infinite;
-        }
+    /* form elements - persis gaya panel */
+    .input-field {
+      margin-bottom: 1.4rem;
+    }
+    .input-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #9aa4bf;
+      margin-bottom: 8px;
+      margin-left: 4px;
+    }
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      background: #0f121b;
+      border-radius: 14px;
+      border: 1px solid #2a3343;
+      transition: all 0.2s;
+      padding: 0 16px;
+    }
+    .input-wrapper:focus-within {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+      background: #0b0f18;
+    }
+    .input-wrapper i:first-child {
+      color: #6e7b9b;
+      font-size: 1rem;
+      margin-right: 12px;
+    }
+    .input-wrapper input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 13px 0;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+      font-weight: 500;
+      outline: none;
+      font-family: 'Inter', monospace;
+    }
+    .input-wrapper input::placeholder {
+      color: #4f5a72;
+      font-weight: 400;
+      font-size: 0.85rem;
+    }
+    .toggle-pw {
+      cursor: pointer;
+      color: #6e7b9b;
+      transition: color 0.2s;
+      margin-left: 5px;
+      font-size: 0.9rem;
+    }
+    .toggle-pw:hover {
+      color: #b9c3e6;
+    }
 
-        @keyframes type {
-            from {
-                box-shadow: inset -3px 0px 0px #888;
-            }
+    /* login button */
+    .login-button {
+      width: 100%;
+      background: linear-gradient(100deg, #2563eb, #3b82f6);
+      border: none;
+      padding: 13px 0;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.2s;
+      margin-top: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .login-button i {
+      font-size: 1rem;
+    }
+    .login-button:hover {
+      background: linear-gradient(100deg, #1d4ed8, #2563eb);
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+      transform: scale(0.99);
+    }
 
-            to {
-                box-shadow: inset -3px 0px 0px transparent;
-            }
-        }
-    </style>
+    /* forgot password link */
+    .forgot-row {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .forgot-row a {
+      color: #8fa2dc;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .forgot-row a i {
+      margin-right: 5px;
+      font-size: 0.7rem;
+    }
+    .forgot-row a:hover {
+      color: #cbd5ff;
+      text-decoration: underline;
+    }
 
+    /* footer copyright */
+    .copyright {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #5f6f8c;
+      border-top: 1px solid rgba(75, 85, 99, 0.3);
+      padding-top: 1.2rem;
+      margin-top: 0.2rem;
+    }
+
+    /* hilangkan semua kemungkinan error recaptcha */
+    .no-recaptcha-area {
+      display: none;
+    }
+
+    /* responsif */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 1.5rem 1.2rem;
+      }
+      .login-header {
+        font-size: 1.3rem;
+      }
+      .brand-area h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div id="main">
-        <div class="fof">
-            <h1>DDOS DONG BANG!</h1>
-        </div>
+<div class="login-container">
+  <div class="login-card">
+    <div class="brand-area">
+      <i class="fas fa-dragon brand-icon"></i>
+      <h2>Pterodactyl</h2>
+      <div class="brand-sub">Panel • Game & Server Management</div>
     </div>
-</body>
 
+    <div class="login-header">Login to Continue</div>
+
+    <!-- Tidak ada error recaptcha sama sekali. Form murni seperti di foto namun tanpa alert merah -->
+    <form id="loginForm" action="#" method="post">
+      <div class="input-field">
+        <div class="input-label"><i class="far fa-user-circle"></i> USERNAME OR EMAIL</div>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope"></i>
+          <input type="text" id="username" name="username" placeholder="user / email" autocomplete="username">
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-label"><i class="fas fa-lock"></i> PASSWORD</div>
+        <div class="input-wrapper">
+          <i class="fas fa-key"></i>
+          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
+          <i class="fas fa-eye-slash toggle-pw" id="togglePwIcon"></i>
+        </div>
+      </div>
+
+      <button type="submit" class="login-button"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
+
+      <div class="forgot-row">
+        <a href="#"><i class="fas fa-question-circle"></i> FORGOT PASSWORD?</a>
+      </div>
+    </form>
+
+    <div class="copyright">
+      © 2015 - 2026 Pterodactyl Software
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Toggle password visibility (tanpa error recaptcha apapun)
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('togglePwIcon');
+    
+    if (toggleIcon && passwordInput) {
+      toggleIcon.addEventListener('click', function() {
+        const currentType = passwordInput.getAttribute('type');
+        if (currentType === 'password') {
+          passwordInput.setAttribute('type', 'text');
+          toggleIcon.classList.remove('fa-eye-slash');
+          toggleIcon.classList.add('fa-eye');
+        } else {
+          passwordInput.setAttribute('type', 'password');
+          toggleIcon.classList.remove('fa-eye');
+          toggleIcon.classList.add('fa-eye-slash');
+        }
+      });
+    }
+
+    // Handle submit form - tidak ada error recaptcha, hanya validasi sederhana
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      
+      if (username === "" || password === "") {
+        alert("Harap isi username/email dan password.");
+        return;
+      }
+      
+      // Simulasi login sukses (tanpa recaptcha)
+      alert(`Selamat datang, ${username}!\nLogin berhasil ke Panel Pterodactyl.\n(Tidak ada error reCAPTCHA)`);
+      // Jika ingin redirect: window.location.href = "/dashboard";
+    });
+    
+    // Pastikan tidak ada kode apapun yang berhubungan dengan reCAPTCHA, error message, ataupun element recaptcha
+    // Halaman sudah sesuai permintaan: mirip foto tapi tanpa error recaptcha
+  })();
+</script>
+</body>
 </html>
