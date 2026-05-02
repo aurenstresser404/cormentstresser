@@ -215,7 +215,6 @@
       transform: translateX(5px);
       color: cyan;
     }
-    .card-tiktok i { color: #ff0050; text-shadow:0 0 3px #ff0050; }
     .card-telegram i { color: #26A5E4; text-shadow:0 0 2px #26A5E4; }
     .card-donasi i { color: #f7b32b; text-shadow:0 0 3px #ffaa33; }
 
@@ -302,6 +301,14 @@
       display: inline-block;
       font-size: 0.7rem;
     }
+    /* optional: fallback notifikasi jika autoplay terblokir */
+    .autoplay-hint {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #ffaa55;
+      margin-top: 5px;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -339,40 +346,36 @@
     </div>
   </div>
 
-  <!-- PEMUTAR MUSIK / LAGU -->
+  <!-- PEMUTAR MUSIK / LAGU dengan autoplay dan loop -->
   <div class="music-player">
     <div class="music-info">
       <i class="fas fa-headphones"></i>
       <span class="music-title">🎧 CORMENT-C2 DJ (KICAW MANIA)</span>
     </div>
-    <audio controls preload="metadata">
-      <!-- Contoh lagu bebas lisensi (SoundHelix) - bisa diganti dengan link MP3 Anda -->
+    <audio id="bgAudio" controls autoplay loop preload="auto">
       <source src="https://www.image2url.com/r2/default/audio/1777730319208-97623ed6-e299-40f3-aab8-2bac0fa34cfc.m4a" type="audio/mpeg">
       Browser Anda tidak mendukung pemutar audio.
     </audio>
   </div>
+  <div id="autoplayHint" class="autoplay-hint"></div>
 
   <!-- Tautan: telegram, Telegram 1, Telegram 2, Donasi -->
   <div class="social-grid">
-    <!-- telegram -->
     <a href="https://t.me/cormentc2" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
-      <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Contack</span></div>
+      <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Contact</span></div>
       <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
     </a>
 
-    <!-- Telegram Channel 1 -->
     <a href="https://t.me/cormentc2ch" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
       <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Channel 1</span></div>
       <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
     </a>
 
-    <!-- Telegram Channel 2 -->
     <a href="https://t.me/proofcorment" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
       <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Channel 2</span></div>
       <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
     </a>
 
-    <!-- Donasi -->
     <a href="https://saweria.co/levanotiktok" target="_blank" rel="noopener noreferrer" class="social-card card-donasi">
       <div class="social-left"><i class="fas fa-heart"></i><span>Donasi</span></div>
       <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
@@ -433,7 +436,36 @@
       });
     }
 
-    console.log(`%c[ CORMENT-C2 ] • LAGU SIAP DIPUTAR • TOTAL PENGUNJUNG: ${totalVisits.toLocaleString()}`, "color: #0ff; font-size: 14px; font-weight: bold;");
+    // ========== AUTOPLAY + LOOP LAGU (langsung play dan auto replay) ==========
+    const audio = document.getElementById('bgAudio');
+    const hintDiv = document.getElementById('autoplayHint');
+    // Coba putar audio secara otomatis saat halaman dimuat
+    if (audio) {
+      // Pastikan loop sudah aktif (atribut loop di HTML sudah ada)
+      audio.loop = true;  // memastikan loop
+      // Mencoba memutar
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Autoplay diblokir oleh browser (kebijakan user interaction)
+          console.log("Autoplay ditolak:", error);
+          hintDiv.style.display = "block";
+          hintDiv.innerHTML = "⚠️ Klik di mana saja untuk memutar musik ⚠️";
+          // Tambahkan event listener satu kali untuk memulai audio setelah klik
+          const startAudio = () => {
+            audio.play().then(() => {
+              hintDiv.style.display = "none";
+            }).catch(e => console.log("Tetap gagal:", e));
+            document.removeEventListener('click', startAudio);
+            document.removeEventListener('touchstart', startAudio);
+          };
+          document.addEventListener('click', startAudio);
+          document.addEventListener('touchstart', startAudio);
+        });
+      }
+    }
+
+    console.log(`%c[ CORMENT-C2 ] • LAGU SIAP DIPUTAR (AUTOPLAY + LOOP) • TOTAL PENGUNJUNG: ${totalVisits.toLocaleString()}`, "color: #0ff; font-size: 14px; font-weight: bold;");
   })();
 </script>
 </body>
