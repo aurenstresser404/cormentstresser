@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Pterodactyl Panel • Login</title>
-  <!-- Font Awesome 6 (ikon) -->
+  <title>CORMENT-C2 • WEBSITE</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -16,319 +15,425 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(circle at 20% 30%, #0a0d14, #030507);
+      background: radial-gradient(circle at 10% 20%, #0a0f1f, #02050c);
+      font-family: 'Space Grotesk', sans-serif;
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      align-items: center;
+      padding: 2rem 1.5rem;
       position: relative;
+      overflow-x: hidden;
     }
 
-    /* Efek grid seperti panel asli */
     body::before {
       content: "";
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(45, 65, 95, 0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(45, 65, 95, 0.15) 1px, transparent 1px);
-      background-size: 42px 42px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(0,255,255,0.02) 0px, rgba(0,255,255,0.02) 1px, transparent 1px, transparent 4px);
       pointer-events: none;
+      z-index: 1;
     }
 
-    .login-container {
+    .cyber-container {
+      max-width: 720px;
       width: 100%;
-      max-width: 460px;
-      z-index: 2;
-      animation: fadeSlideUp 0.45s ease-out;
-    }
-
-    @keyframes fadeSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Card utama - mirip Pterodactyl panel style */
-    .login-card {
-      background: rgba(20, 24, 33, 0.96);
-      backdrop-filter: blur(2px);
-      border-radius: 24px;
+      background: rgba(6, 12, 24, 0.7);
+      backdrop-filter: blur(14px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.5), 0 0 20px rgba(0, 255, 255, 0.2);
       padding: 2rem 2rem 2rem 2rem;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.1);
-      border: 1px solid rgba(49, 66, 86, 0.6);
       transition: all 0.2s;
+      z-index: 10;
     }
 
-    /* logo/brand area */
-    .brand-area {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .brand-icon {
-      font-size: 2.6rem;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .brand-area h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-top: 6px;
-      background: linear-gradient(135deg, #eef2ff, #c7d2fe);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.2px;
-    }
-    .brand-sub {
-      font-size: 0.75rem;
-      color: #7e8aa2;
-      margin-top: 6px;
-      font-weight: 400;
-    }
-
-    /* header login */
-    .login-header {
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-align: center;
-      color: #f0f3fa;
-      margin-bottom: 1.6rem;
-      letter-spacing: -0.2px;
-    }
-
-    /* form elements - persis gaya panel */
-    .input-field {
-      margin-bottom: 1.4rem;
-    }
-    .input-label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
+    .glitch {
+      font-size: 3rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #9aa4bf;
-      margin-bottom: 8px;
-      margin-left: 4px;
-    }
-    .input-wrapper {
-      display: flex;
-      align-items: center;
-      background: #0f121b;
-      border-radius: 14px;
-      border: 1px solid #2a3343;
-      transition: all 0.2s;
-      padding: 0 16px;
-    }
-    .input-wrapper:focus-within {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-      background: #0b0f18;
-    }
-    .input-wrapper i:first-child {
-      color: #6e7b9b;
-      font-size: 1rem;
-      margin-right: 12px;
-    }
-    .input-wrapper input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      padding: 13px 0;
-      color: #f1f5f9;
-      font-size: 0.9rem;
-      font-weight: 500;
-      outline: none;
-      font-family: 'Inter', monospace;
-    }
-    .input-wrapper input::placeholder {
-      color: #4f5a72;
-      font-weight: 400;
-      font-size: 0.85rem;
-    }
-    .toggle-pw {
-      cursor: pointer;
-      color: #6e7b9b;
-      transition: color 0.2s;
-      margin-left: 5px;
-      font-size: 0.9rem;
-    }
-    .toggle-pw:hover {
-      color: #b9c3e6;
+      text-align: center;
+      position: relative;
+      text-shadow: 0.05em 0 0 rgba(255,0,100,0.7), -0.05em -0.025em 0 rgba(0,255,255,0.7);
+      animation: glitch-shake 0.25s infinite alternate;
+      color: #eafbff;
+      letter-spacing: 3px;
     }
 
-    /* login button */
-    .login-button {
+    .glitch span {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      background: linear-gradient(100deg, #2563eb, #3b82f6);
-      border: none;
-      padding: 13px 0;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      font-family: inherit;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.2s;
-      margin-top: 12px;
-      margin-bottom: 22px;
-      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+      height: 100%;
+      opacity: 0.7;
+    }
+    .glitch span:first-child {
+      animation: glitch-1 2s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+      transform: translate(-0.03em, -0.015em);
+      color: #ff66cc;
+    }
+    .glitch span:last-child {
+      animation: glitch-2 1.5s infinite;
+      clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+      transform: translate(0.02em, 0.02em);
+      color: #0ff;
+    }
+
+    @keyframes glitch-1 {
+      0%,100%{ transform: translate(0); opacity:0.5; }
+      20%{ transform: translate(-2px,1px); opacity:0.9; }
+      40%{ transform: translate(2px,-1px); opacity:0.6; }
+      80%{ transform: translate(1px,2px); opacity:0.8; }
+    }
+    @keyframes glitch-2 {
+      0%,100%{ transform: translate(0); opacity:0.5; }
+      25%{ transform: translate(2px,-1px); opacity:0.8; }
+      75%{ transform: translate(-1px,2px); opacity:0.7; }
+    }
+    @keyframes glitch-shake {
+      0% { transform: translate(0); }
+      100% { transform: translate(-0.6px, 0.4px); }
+    }
+
+    .total-visitor-section {
+      background: linear-gradient(135deg, rgba(0, 10, 20, 0.85), rgba(0, 30, 45, 0.75));
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.8rem 0 1.2rem;
+      text-align: center;
+      border: 1px solid #0ff3;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 12px rgba(0,255,255,0.2);
+    }
+
+    .total-label {
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #a0f0ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
-    .login-button i {
-      font-size: 1rem;
-    }
-    .login-button:hover {
-      background: linear-gradient(100deg, #1d4ed8, #2563eb);
-      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
-      transform: scale(0.99);
-    }
-
-    /* forgot password link */
-    .forgot-row {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .forgot-row a {
-      color: #8fa2dc;
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .forgot-row a i {
-      margin-right: 5px;
-      font-size: 0.7rem;
-    }
-    .forgot-row a:hover {
-      color: #cbd5ff;
-      text-decoration: underline;
-    }
-
-    /* footer copyright */
-    .copyright {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #5f6f8c;
-      border-top: 1px solid rgba(75, 85, 99, 0.3);
-      padding-top: 1.2rem;
+    .total-label i { font-size: 1.2rem; color: cyan; }
+    .total-number {
+      font-size: 4.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #0ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+      text-shadow: 0 0 8px rgba(0,255,255,0.3);
       margin-top: 0.2rem;
+      font-family: monospace;
+      letter-spacing: 4px;
+    }
+    .total-sub { font-size: 0.7rem; opacity: 0.7; margin-top: 4px; }
+
+    .stats-panel {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(0, 26, 36, 0.6);
+      border-radius: 60px;
+      padding: 0.6rem 1.5rem;
+      margin: 1.2rem 0 2rem;
+      border: 1px solid cyan;
+      backdrop-filter: blur(4px);
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #b3f5ff;
+    }
+    .stat-item i { font-size: 1.2rem; color: #0ff; }
+    .stat-number {
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: linear-gradient(145deg, #cff, #0ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    /* hilangkan semua kemungkinan error recaptcha */
-    .no-recaptcha-area {
-      display: none;
+    .social-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.8rem 0 1rem;
+    }
+    .social-card {
+      background: rgba(10, 20, 32, 0.75);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.2s;
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .social-card:hover {
+      transform: translateY(-3px);
+      border-color: #0ff;
+      box-shadow: 0 0 15px cyan;
+      background: rgba(0, 32, 48, 0.9);
+    }
+    .social-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .social-left i {
+      font-size: 1.8rem;
+      width: 2rem;
+    }
+    .social-left span {
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: #ffffff;
+    }
+    .arrow-icon {
+      opacity: 0.7;
+      transition: 0.2s;
+      color: #ccc;
+    }
+    .social-card:hover .arrow-icon {
+      opacity: 1;
+      transform: translateX(5px);
+      color: cyan;
+    }
+    .card-tiktok i { color: #ff0050; text-shadow:0 0 3px #ff0050; }
+    .card-telegram i { color: #26A5E4; text-shadow:0 0 2px #26A5E4; }
+    .card-donasi i { color: #f7b32b; text-shadow:0 0 3px #ffaa33; }
+
+    /* MUSIC PLAYER custom */
+    .music-player {
+      background: rgba(0, 20, 30, 0.7);
+      border-radius: 60px;
+      padding: 0.7rem 1.2rem;
+      margin: 1rem 0 1.2rem;
+      border: 1px solid cyan;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .music-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #bff;
+    }
+    .music-info i {
+      font-size: 1.7rem;
+      color: #ff66cc;
+      animation: pulseIcon 1.5s infinite;
+    }
+    @keyframes pulseIcon {
+      0% { text-shadow: 0 0 2px #ff66cc; opacity: 0.7; }
+      100% { text-shadow: 0 0 12px #ff66cc; opacity: 1; }
+    }
+    .music-title {
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+    audio {
+      background: #0a1f2a;
+      border-radius: 40px;
+      height: 35px;
+      width: 220px;
+    }
+    audio::-webkit-media-controls-panel {
+      background-color: #0a1f2a;
+    }
+    @media (max-width: 550px) {
+      .music-player { flex-direction: column; align-items: stretch; text-align: center; }
+      audio { width: 100%; }
     }
 
-    /* responsif */
-    @media (max-width: 480px) {
-      .login-card {
-        padding: 1.5rem 1.2rem;
-      }
-      .login-header {
-        font-size: 1.3rem;
-      }
-      .brand-area h2 {
-        font-size: 1.5rem;
-      }
+    .live-footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: #6d8fa0;
+      border-top: 1px dashed cyan;
+      padding-top: 1.2rem;
+    }
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #0f0;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulseAnim 1.2s infinite;
+      box-shadow: 0 0 5px #0f0;
+    }
+    @keyframes pulseAnim { 0% { opacity: 0.4; transform: scale(0.8);} 100% { opacity: 1; transform: scale(1.2);} }
+
+    @media (max-width: 500px) {
+      .cyber-container { padding: 1.5rem; }
+      .glitch { font-size: 2rem; }
+      .total-number { font-size: 2.8rem; }
+      .stats-panel { flex-direction: column; align-items: center; gap: 0.4rem; }
+      .social-left span { font-size: 0.9rem; }
+    }
+    .info-badge {
+      font-family: monospace;
+      background: #0a1c1f30;
+      border-radius: 50px;
+      padding: 0.2rem 1rem;
+      display: inline-block;
+      font-size: 0.7rem;
     }
   </style>
 </head>
 <body>
-<div class="login-container">
-  <div class="login-card">
-    <div class="brand-area">
-      <i class="fas fa-dragon brand-icon"></i>
-      <h2>Pterodactyl</h2>
-      <div class="brand-sub">Panel • Game & Server Management</div>
+<div class="cyber-container">
+  <div class="glitch">
+    CORMENT-C2
+    <span aria-hidden="true">CORMENT-C2</span>
+    <span aria-hidden="true">CORMENT-C2</span>
+  </div>
+  <div style="text-align: center; margin-top: 6px;">
+    <span class="info-badge"><i class="fas fa-shield-haltered"></i> CYBER REALM // DARKNET HUB</span>
+  </div>
+
+  <!-- TOTAL PENGUNJUNG -->
+  <div class="total-visitor-section">
+    <div class="total-label">
+      <i class="fas fa-chart-line"></i> TOTAL PENGUNJUNG
+      <i class="fas fa-globe"></i>
     </div>
+    <div class="total-number" id="totalVisitorDisplay">0</div>
+    <div class="total-sub"><i class="fas fa-database"></i> sepanjang waktu • lifetime counter</div>
+  </div>
 
-    <div class="login-header">Login to Continue</div>
-
-    <!-- Tidak ada error recaptcha sama sekali. Form murni seperti di foto namun tanpa alert merah -->
-    <form id="loginForm" action="#" method="post">
-      <div class="input-field">
-        <div class="input-label"><i class="far fa-user-circle"></i> USERNAME OR EMAIL</div>
-        <div class="input-wrapper">
-          <i class="fas fa-envelope"></i>
-          <input type="text" id="username" name="username" placeholder="user / email" autocomplete="username">
-        </div>
-      </div>
-
-      <div class="input-field">
-        <div class="input-label"><i class="fas fa-lock"></i> PASSWORD</div>
-        <div class="input-wrapper">
-          <i class="fas fa-key"></i>
-          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password">
-          <i class="fas fa-eye-slash toggle-pw" id="togglePwIcon"></i>
-        </div>
-      </div>
-
-      <button type="submit" class="login-button"><i class="fas fa-sign-in-alt"></i> LOGIN</button>
-
-      <div class="forgot-row">
-        <a href="#"><i class="fas fa-question-circle"></i> FORGOT PASSWORD?</a>
-      </div>
-    </form>
-
-    <div class="copyright">
-      © 2015 - 2026 Pterodactyl Software
+  <!-- stats panel: ONLINE SEKARANG dan STATUS -->
+  <div class="stats-panel">
+    <div class="stat-item">
+      <i class="fas fa-user-astronaut"></i>
+      <span>ONLINE SEKARANG</span>
+      <span class="stat-number" id="onlineNow">--</span>
     </div>
+    <div class="stat-item">
+      <i class="fas fa-fingerprint"></i>
+      <span>STATUS</span>
+      <span style="color:#0f0;">● LIVE</span>
+    </div>
+  </div>
+
+  <!-- PEMUTAR MUSIK / LAGU -->
+  <div class="music-player">
+    <div class="music-info">
+      <i class="fas fa-headphones"></i>
+      <span class="music-title">🎧 CORMENT-C2 DJ (KICAW MANIA)</span>
+    </div>
+    <audio controls preload="metadata">
+      <!-- Contoh lagu bebas lisensi (SoundHelix) - bisa diganti dengan link MP3 Anda -->
+      <source src="https://www.image2url.com/r2/default/audio/1777730319208-97623ed6-e299-40f3-aab8-2bac0fa34cfc.m4a" type="audio/mpeg">
+      Browser Anda tidak mendukung pemutar audio.
+    </audio>
+  </div>
+
+  <!-- Tautan: telegram, Telegram 1, Telegram 2, Donasi -->
+  <div class="social-grid">
+    <!-- telegram -->
+    <a href="https://t.me/cormentc2" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
+      <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Contack</span></div>
+      <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <!-- Telegram Channel 1 -->
+    <a href="https://t.me/cormentc2ch" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
+      <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Channel 1</span></div>
+      <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <!-- Telegram Channel 2 -->
+    <a href="https://t.me/proofcorment" target="_blank" rel="noopener noreferrer" class="social-card card-telegram">
+      <div class="social-left"><i class="fab fa-telegram-plane"></i><span>Telegram Channel 2</span></div>
+      <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
+    <!-- Donasi -->
+    <a href="https://saweria.co/levanotiktok" target="_blank" rel="noopener noreferrer" class="social-card card-donasi">
+      <div class="social-left"><i class="fas fa-heart"></i><span>Donasi</span></div>
+      <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
+    </a>
+  </div>
+
+  <div class="live-footer">
+    <span class="pulse"></span> <span id="liveTimeStamp">ENCRYPTED SESSION</span><br>
+    <span style="font-size: 0.7rem;"><i class="fas fa-skull"></i> @cormentc2 • all connections are monitored</span>
   </div>
 </div>
 
 <script>
   (function() {
-    // Toggle password visibility (tanpa error recaptcha apapun)
-    const passwordInput = document.getElementById('password');
-    const toggleIcon = document.getElementById('togglePwIcon');
+    // TOTAL VISITOR COUNTER
+    let totalVisits = localStorage.getItem('cormentc2_total_visits');
+    if (totalVisits === null || isNaN(parseInt(totalVisits))) {
+      totalVisits = 8724;
+    } else {
+      totalVisits = parseInt(totalVisits) + 1;
+    }
+    localStorage.setItem('cormentc2_total_visits', totalVisits);
     
-    if (toggleIcon && passwordInput) {
-      toggleIcon.addEventListener('click', function() {
-        const currentType = passwordInput.getAttribute('type');
-        if (currentType === 'password') {
-          passwordInput.setAttribute('type', 'text');
-          toggleIcon.classList.remove('fa-eye-slash');
-          toggleIcon.classList.add('fa-eye');
-        } else {
-          passwordInput.setAttribute('type', 'password');
-          toggleIcon.classList.remove('fa-eye');
-          toggleIcon.classList.add('fa-eye-slash');
-        }
+    function formatNumber(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    document.getElementById('totalVisitorDisplay').innerText = formatNumber(totalVisits);
+
+    // ONLINE SEKARANG
+    let onlineBase = parseInt(localStorage.getItem('cormentc2_online_seed')) || 3;
+    function updateOnline() {
+      let change = Math.floor(Math.random() * 5) - 1;
+      let newOnline = Math.max(1, Math.min(29, onlineBase + change));
+      document.getElementById('onlineNow').innerText = newOnline;
+      onlineBase = newOnline;
+      localStorage.setItem('cormentc2_online_seed', onlineBase);
+    }
+    updateOnline();
+    setInterval(updateOnline, 27000);
+
+    // live timestamp
+    const timeElement = document.getElementById('liveTimeStamp');
+    function updateTimestamp() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('id-ID', { hour12: false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
+      timeElement.innerHTML = `⚡ ${timeStr} WIB • CORMENT-C2 NODE ⚡`;
+    }
+    updateTimestamp();
+    setInterval(updateTimestamp, 1000);
+
+    // glitch click effect
+    const glitchDiv = document.querySelector('.glitch');
+    if(glitchDiv) {
+      glitchDiv.addEventListener('click', () => {
+        glitchDiv.style.animation = 'none';
+        setTimeout(() => { glitchDiv.style.animation = 'glitch-shake 0.25s infinite alternate'; }, 20);
+        setTimeout(() => { glitchDiv.style.animation = ''; }, 500);
       });
     }
 
-    // Handle submit form - tidak ada error recaptcha, hanya validasi sederhana
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value;
-      
-      if (username === "" || password === "") {
-        alert("Harap isi username/email dan password.");
-        return;
-      }
-      
-      // Simulasi login sukses (tanpa recaptcha)
-      alert(`Selamat datang, ${username}!\nLogin berhasil ke Panel Pterodactyl.\n(Tidak ada error reCAPTCHA)`);
-      // Jika ingin redirect: window.location.href = "/dashboard";
-    });
-    
-    // Pastikan tidak ada kode apapun yang berhubungan dengan reCAPTCHA, error message, ataupun element recaptcha
-    // Halaman sudah sesuai permintaan: mirip foto tapi tanpa error recaptcha
+    console.log(`%c[ CORMENT-C2 ] • LAGU SIAP DIPUTAR • TOTAL PENGUNJUNG: ${totalVisits.toLocaleString()}`, "color: #0ff; font-size: 14px; font-weight: bold;");
   })();
 </script>
 </body>
